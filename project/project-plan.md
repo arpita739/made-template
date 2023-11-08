@@ -22,6 +22,7 @@ Furthermore, keeping up with emerging technologies that may impact the job marke
 <!-- Describe each datasources you plan to use in a section. Use the prefic "DatasourceX" where X is the id of the datasource. -->
 
 ### Datasource1: ExampleSource
+* Meta data : https://www.kaggle.com/datasets/thedevastator/jobs-dataset-from-glassdoor/data
 * Data URL: https://www.kaggle.com/datasets/thedevastator/jobs-dataset-from-glassdoor/
 * Data Type: CSV
 * Collection Methodology: Web Scrapping
