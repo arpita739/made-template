@@ -6,7 +6,7 @@ csv_file_path = '../data/rhein-kreis-neuss-flughafen-weltweit.csv'
 df = pd.read_csv(csv_file_path,sep=';')
 
 
-db_connection_str = 'airports.sqlite'
+db_connection_str = 'sqlite:///airports.sqlite'
 
 engine = create_engine(db_connection_str)
 
