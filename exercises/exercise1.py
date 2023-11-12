@@ -1,16 +1,16 @@
 import pandas as pd
-import sqlite3
+from sqlalchemy import create_engine
 
 
 csv_file_path = '../data/rhein-kreis-neuss-flughafen-weltweit.csv'
 df = pd.read_csv(csv_file_path,sep=';')
 
 
-db_connection = sqlite3.connect('airports.sqlite')
+db_connection_str = 'airports.sqlite'
+
+engine = create_engine(db_connection_str)
 
 
-df.to_sql('airports', db_connection, index=False, if_exists='replace')
+df.to_sql('airports', con =engine, index=False, if_exists='replace')
 
-
-db_connection.commit()
-db_connection.close()
+engine.dispose()
