@@ -9,7 +9,7 @@ response = urllib.request.urlopen(url)
 csv_content = response.read().decode('utf-8')
 
 # Step 2: Read the CSV file into a pandas DataFrame
-df = pd.read_csv(StringIO(csv_content))
+df = pd.read_csv(StringIO(csv_content),sep=';')
 
 # Step 3: Define the SQLite database connection and create an SQLAlchemy engine
 db_connection_str = 'sqlite:///airports.sqlite'
