@@ -19,8 +19,9 @@ pipeline TrainstopPipeline {
     block TrainstopCSVInterpreter oftype CSVInterpreter {
 	delimiter: ';';
     }
+
     block TrainstopColumnDeleter oftype ColumnDeleter {
-    delete: [column Status];
+    delete: [column J];
     constraint ValidVerkehrCodeList on text:
         value in [
             "FV", "RV", "nur DPN",
