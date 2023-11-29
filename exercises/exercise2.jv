@@ -1,7 +1,7 @@
 pipeline TrainstopPipeline {
 
 
-    TrainstopPipelineHttpExtractor
+    TrainstopHttpExtractor
         -> TrainstopTextFileInterpreter
         -> TrainstopCSVInterpreter
         -> TrainstopColumnDeleter
@@ -71,7 +71,6 @@ pipeline TrainstopPipeline {
             "NAME" oftype text,
             "Verkehr" oftype ValidVerkehrCode,
             "Laenge" oftype ValidLaenge,
-            "Breite" oftype ValidBreite,
             "Betreiber_Name" oftype text,
             "Betreiber_Nr" oftype integer,
         ];
@@ -80,7 +79,7 @@ pipeline TrainstopPipeline {
 
     block TrainstopLoader oftype SQLiteLoader {
         table: "trainstops";
-        file: "./trainstop.db";
+        file: "./trainstop.sqlite";
         dropTable: false;
     }
     }
