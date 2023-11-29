@@ -22,10 +22,14 @@ pipeline TrainstopPipeline {
 
     block TrainstopColumnDeleter oftype ColumnDeleter {
     delete: [column J];
-    constraint ValidVerkehrCodeList on text:
-        value in [
-            "FV", "RV", "nur DPN",
+
+
+    valuetype ValidVerkehrCode oftype text {
+        constraints: [
+            ValidVerkehrCodeList,
         ];
+    }
+    
     valuetype ValidLaenge oftype decimal {
         constraints: [
             ValidLaengeConstraint,
@@ -38,6 +42,7 @@ pipeline TrainstopPipeline {
             ValidIFOPTFormat,
         ];
     }
+ 
     constraint ValidVerkehrCodeList on text:
         value in [
             "FV", "RV", "nur DPN",
