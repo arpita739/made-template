@@ -48,6 +48,6 @@ pipeline TrainstopPipeline {
         file: "./trainstop.sqlite";
     }
      block MpgColumnDeleter oftype ColumnDeleter {
-   delete: [];
+   delete: [column Status];
  }
 }
