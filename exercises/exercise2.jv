@@ -10,7 +10,7 @@ pipeline TrainstopPipeline {
 
     block TrainstopHttpExtractor oftype HttpExtractor {
 
-        url: "https://opendata.rhein-kreis-neuss.de/api/v2/catalog/datasets/rhein-kreis-neuss-flughafen-weltweit/exports/csv";
+        url: "https://download-data.deutschebahn.com/static/datasets/haltestellen/D_Bahnhof_2020_alle.CSV";
     }
 
     block TrainstopTextFileInterpreter oftype TextFileInterpreter { }
