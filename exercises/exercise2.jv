@@ -18,6 +18,13 @@ pipeline TrainstopPipeline {
     block TrainstopCSVInterpreter oftype CSVInterpreter {
 	delimiter: ';';
     }
+    block TrainstopTableInterpreter oftype ColumnDeleter {
+    delete: [column Status];
+    constraint ValidVerkehrCodeList on text:
+        value in [
+            "FV", "RV", "nur DPN",
+        ];
+
 
 
     block TrainstopTableInterpreter oftype TableInterpreter {
@@ -47,7 +54,7 @@ pipeline TrainstopPipeline {
         table: "trainstop";
         file: "./trainstop.sqlite";
     }
-     block MpgColumnDeleter oftype ColumnDeleter {
-   delete: [column Status];
+
+    
  }
 }
