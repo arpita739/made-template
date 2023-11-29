@@ -4,6 +4,7 @@ pipeline TrainstopPipeline {
     TrainstopPipelineHttpExtractor
         -> TrainstopTextFileInterpreter
         -> TrainstopCSVInterpreter
+        ->TrainstopColumnDeleter
         -> TrainstopTableInterpreter
         -> TrainstopLoader;
 
@@ -18,7 +19,7 @@ pipeline TrainstopPipeline {
     block TrainstopCSVInterpreter oftype CSVInterpreter {
 	delimiter: ';';
     }
-    block TrainstopTableInterpreter oftype ColumnDeleter {
+    block TrainstopColumnDeleter oftype ColumnDeleter {
     delete: [column Status];
     constraint ValidVerkehrCodeList on text:
         value in [
