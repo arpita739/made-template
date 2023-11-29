@@ -81,8 +81,9 @@ pipeline TrainstopPipeline {
     block TrainstopLoader oftype SQLiteLoader {
         table: "trainstops";
         file: "./trainstop.sqlite";
+        dropTable: false;
     }
 
     
- }
+ 
 }
