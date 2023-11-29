@@ -18,7 +18,5 @@ engine = create_engine(db_connection_str)
 # Step 4: Writing the DataFrame to the SQLite database
 df.to_sql('airports', con=engine, index=False, if_exists='replace')
 
-
-
 # Close the engine
 engine.dispose()
