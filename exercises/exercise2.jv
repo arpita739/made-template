@@ -44,8 +44,10 @@ pipeline TrainstopPipeline {
 
 
     block TrainstopLoader oftype SQLiteLoader {
-        table: "Trainstop";
-        file: "./Trainstop.sqlite";
+        table: "trainstop";
+        file: "./trainstop.sqlite";
     }
-  
+     block MpgColumnDeleter oftype ColumnDeleter {
+   delete: [];
+ }
 }
