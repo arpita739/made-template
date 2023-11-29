@@ -22,7 +22,7 @@ pipeline TrainstopPipeline {
 
     block TrainstopColumnDeleter oftype ColumnDeleter {
     delete: [column J];
-
+    }
 
     valuetype ValidVerkehrCode oftype text {
         constraints: [
@@ -82,7 +82,5 @@ pipeline TrainstopPipeline {
         file: "./trainstop.sqlite";
         dropTable: false;
     }
-    }
     
- 
 }
