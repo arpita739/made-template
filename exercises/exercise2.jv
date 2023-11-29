@@ -83,7 +83,7 @@ pipeline TrainstopPipeline {
         file: "./trainstop.sqlite";
         dropTable: false;
     }
-
+    }
     
  
 }
