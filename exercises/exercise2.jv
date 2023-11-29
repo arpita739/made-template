@@ -24,28 +24,49 @@ pipeline TrainstopPipeline {
         value in [
             "FV", "RV", "nur DPN",
         ];
+    valuetype ValidLaenge oftype decimal {
+        constraints: [
+            ValidLaengeConstraint,
+        ];
+    }
 
+    
+    valuetype ValidIFOPT oftype text {
+        constraints: [
+            ValidIFOPTFormat,
+        ];
+    }
+    constraint ValidVerkehrCodeList on text:
+        value in [
+            "FV", "RV", "nur DPN",
+        ];
+
+    constraint ValidLaengeConstraint oftype RangeConstraint {
+        lowerBound: -90;
+        lowerBoundInclusive: true;
+        upperBound: 90;
+        upperBoundInclusive: true;
+    }
+
+  
+
+    constraint ValidIFOPTFormat oftype RegexConstraint {
+        regex: /^(([a-z]|[A-Z]){2}((:{1}\d*:{1}\d*)|(:{1}\d*:{1}\d*:{1}\d*)))$/;
+    }
 
 
     block TrainstopTableInterpreter oftype TableInterpreter {
         header: true;
         columns: [
-            // 4. Here, a user-deifned valuetype is used to describe this column.
-            // The capital letter indicates that the valuetype is not builtin
-            // by convention. The valuetype itself is defined further below.
-            "column_1" oftype integer,
-            "column_2" oftype text,
-	    "column_3" oftype text,
-	    "column_4" oftype text,
-	    "column_5" oftype text,
-	    "column_6" oftype text,
-            "column_7" oftype decimal,
-            "column_8" oftype decimal,
-            "column_9" oftype integer,
-            "column_10" oftype decimal,
-            "column_11" oftype text,
-            "column_12" oftype text,
-            "geo_punkt" oftype text
+            "EVA_NR" oftype integer,
+            "DS100" oftype text,
+            "IFOPT" oftype ValidIFOPT,
+            "NAME" oftype text,
+            "Verkehr" oftype ValidVerkehrCode,
+            "Laenge" oftype ValidLaenge,
+            "Breite" oftype ValidBreite,
+            "Betreiber_Name" oftype text,
+            "Betreiber_Nr" oftype integer,
         ];
     }
 
