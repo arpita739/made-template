@@ -1,50 +1,60 @@
-import os
-import sqlite3
+import unittest
 import pandas as pd
-import pytest
+import sqlite3
+import os
 
-@pytest.fixture
-def base_path():
-    return '/path/to/your/project/'  # Replace with the actual path to your project
+class TestDatasetProcessing(unittest.TestCase):
+    def setUp(self):
+        # You can modify this path based on your project structure
+        self.base_path = '/Users/arpitahalder/Lecture/SAKI/made-template'
 
-def test_cleaned_data_import_and_sql(base_path):
-    file_path = os.path.join(base_path, 'jobs-dataset-from-glassdoor/salary_data_cleaned.csv')
-    db_path = os.path.join(base_path, 'data/clean_salary.sqlite')
+    def test_cleaned_data_import_and_sql(self):
+        file_path = os.path.join(self.base_path, 'project/jobs-dataset-from-glassdoor/salary_data_cleaned.csv')
+        db_path = os.path.join(self.base_path, 'data/clean_salary.sqlite')
 
-    assert os.path.exists(file_path), f"File not found: {file_path}"
+        # Ensure the file exists
+        self.assertTrue(os.path.exists(file_path))
 
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM clean_salary")
-    result = cursor.fetchall()
-    conn.close()
+        # Ensure the SQLite database is created and the table is populated
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM clean_salary")
+        result = cursor.fetchall()
+        conn.close()
 
-    assert len(result) > 0, f"No data found in clean_salary table: {result}"
+        self.assertGreater(len(result), 0)
 
-def test_glassdoor_data_import_and_sql(base_path):
-    file_path = os.path.join(base_path, 'jobs-dataset-from-glassdoor/glassdoor_jobs.csv')
-    db_path = os.path.join(base_path, 'data/glassdoor.sqlite')
+    def test_glassdoor_data_import_and_sql(self):
+        file_path = os.path.join(self.base_path, 'project/jobs-dataset-from-glassdoor/glassdoor_jobs.csv')
+        db_path = os.path.join(self.base_path, 'data/glassdoor.sqlite')
 
-    assert os.path.exists(file_path), f"File not found: {file_path}"
+        # Ensure the file exists
+        self.assertTrue(os.path.exists(file_path))
 
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM glassdoor")
-    result = cursor.fetchall()
-    conn.close()
+        # Ensure the SQLite database is created and the table is populated
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM glassdoor")
+        result = cursor.fetchall()
+        conn.close()
 
-    assert len(result) > 0, f"No data found in glassdoor table: {result}"
+        self.assertGreater(len(result), 0)
 
-def test_eda_data_import_and_sql(base_path):
-    file_path = os.path.join(base_path, 'jobs-dataset-from-glassdoor/eda_data.csv')
-    db_path = os.path.join(base_path, 'data/eda.sqlite')
+    def test_eda_data_import_and_sql(self):
+        file_path = os.path.join(self.base_path, 'project/jobs-dataset-from-glassdoor/eda_data.csv')
+        db_path = os.path.join(self.base_path, 'data/eda.sqlite')
 
-    assert os.path.exists(file_path), f"File not found: {file_path}"
+        # Ensure the file exists
+        self.assertTrue(os.path.exists(file_path))
 
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM eda")
-    result = cursor.fetchall()
-    conn.close()
+        # Ensure the SQLite database is created and the table is populated
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM eda")
+        result = cursor.fetchall()
+        conn.close()
 
-    assert len(result) > 0, f"No data found in eda table: {result}"
+        self.assertGreater(len(result), 0)
+
+if __name__ == '__main__':
+    unittest.main()
