@@ -49,7 +49,7 @@ jobs:
 
         steps:
             - run: echo The Testing process about to begin!
-            - name: Build python project/test.sh
+            - name: Build python project/pipeline.sh
               run: | 
                 bash project/test.sh
                 echo "Testing process completed!"
