@@ -3,7 +3,7 @@ import os
 import opendatasets as od
 import sqlite3
 import pandas as pd
-#Testing automated pipeline
+#Testing automated
 class TestDownloadAndSaveDataset(unittest.TestCase):
 
     def setUp(self):
