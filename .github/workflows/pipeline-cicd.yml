@@ -36,7 +36,7 @@ jobs:
         needs: job1_setup_environment
 
         steps:
-            - name: Build python project/pipeline.sh
+            - name: Build python ./project/pipeline.sh
               run: | 
                 echo The Build process about to begin!
                 bash project/pipeline.sh
@@ -48,7 +48,7 @@ jobs:
 
         steps:
             - run: echo The Testing process about to begin!
-            - name: Build python project/test.sh
+            - name: Build python ./project/test.sh
               run: | 
                 bash project/test.sh
                 echo "Testing process completed!"
