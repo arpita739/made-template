@@ -35,7 +35,7 @@ jobs:
 
             - name: Grant Access
               run: |
-                chmod +x ./project/pipeline.sh
+                chmod +x ../project/pipeline.sh
                 chmod +x ./project/test.sh
                 chmod +x ./project/pipeline.py
                 chmod +x ./project/test.py
