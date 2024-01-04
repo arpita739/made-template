@@ -39,7 +39,7 @@ jobs:
             - name: Build python ./project/pipeline.sh
               run: | 
                 echo The Build process about to begin!
-                bash project/pipeline.sh
+                bash ./project/pipeline.sh
                 echo "Build process completed!"
 
     job3_test:
@@ -50,5 +50,5 @@ jobs:
             - run: echo The Testing process about to begin!
             - name: Build python ./project/test.sh
               run: | 
-                bash project/test.sh
+                bash ./project/test.sh
                 echo "Testing process completed!"
