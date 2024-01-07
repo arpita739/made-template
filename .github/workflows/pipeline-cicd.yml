@@ -41,7 +41,7 @@ jobs:
           chmod 600 $HOME/.kaggle/kaggle.json
   job2_build:
     runs-on: ubuntu-latest
-    needs: job1_setup_environment
+    needs: [job1_setup_environment, kaggle-pipeline]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -58,7 +58,7 @@ jobs:
 
   job3_test:
     runs-on: ubuntu-latest
-    needs: [job1_setup_environment, job2_build]
+    needs: [job1_setup_environment, kaggle-pipeline, job2_build]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
