@@ -4,6 +4,6 @@
 pip install kaggle
 pip install opendatasets
 pip install pandas
-python3 pipeline.py
 
-
+# Execute the Python script
+python3 /Users/arpitahalder/Lecture/SAKI/made-template/project/pipeline.py
