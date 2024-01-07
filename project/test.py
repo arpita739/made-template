@@ -10,7 +10,7 @@ import shutil
 from kaggle.api.kaggle_api_extended import KaggleApi
 import zipfile
 
-# Testing automated pipeline github
+# Testing automated pipeline
 class TestDownloadAndSaveDataset(unittest.TestCase):
 
     def setUp(self):
