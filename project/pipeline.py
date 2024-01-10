@@ -21,7 +21,7 @@ dataset_folder = os.path.join(data_folder, 'dataset-folder')
 clean_salary_db_path = os.path.join(data, 'clean_salary.sqlite')
 ds_salary_db_path = os.path.join(data, 'ds_salaries.sqlite')
 cleancsv_path = os.path.join(dataset_folder, 'salary_data_cleaned.csv')
-ds_salary_path = os.path.join(data_folder, 'ds_salaries.csv')
+ds_salary_path = os.path.join(dataset_folder, 'ds_salaries.csv')
 
 
 #api = KaggleApi()
