@@ -4,6 +4,7 @@ import io
 import requests
 import kaggle
 import shutil
+import pycountry
 from kaggle.api.kaggle_api_extended import KaggleApi
 import zipfile
 import os
@@ -17,8 +18,8 @@ def extract_and_move(old_name: str, new_name: str, extract_path: str):
 data= '../data'
 dataset_folder = os.path.join(data, 'dataset-folder')
 clean_salary_db_path = os.path.join(data, 'clean_salary.sqlite')
-global_salary_db_path = os.path.join(data, 'global_salary.sqlite')
-
+ds_salary_db_path =os.path.join(data,'ds_salaries.sqlite')
+'''
 api = KaggleApi()
 api.authenticate()
 
@@ -26,10 +27,18 @@ api.authenticate()
 api.dataset_download_file('thedevastator/jobs-dataset-from-glassdoor','file.zip')
 
 extract_and_move('file.zip', dataset_folder, data_folder)
-
+'''
 # Read CSV file
 file_path = os.path.join(dataset_folder, 'salary_data_cleaned.csv')
 cleancsv_df = pd.read_csv(file_path)
+# Define a function to extract the company name before '\n'
+def extract_company_name(row):
+    return row['Company Name'].split('\n')[0]
+
+# Apply the function to create a new column 'company'
+cleancsv_df['company'] = cleancsv_df.apply(lambda row: extract_company_name(row), axis=1)
+# Drop the original 'Company Name' column
+cleancsv_df = cleancsv_df.drop(columns=['Company Name'])
 
 # Cleaning
 cleancsv_df = cleancsv_df[(cleancsv_df['Sector'] != 'unknown') & (cleancsv_df['Sector'] != '-1')]
@@ -40,35 +49,30 @@ with sqlite3.connect(clean_salary_db_path) as conn:
 
 print("American Salary Data loaded successfully!")
 
-# URL of the Excel file
-excel_url = 'https://query.data.world/s/7swlcctjkj7vxuhxta7oxjtcy36ptk?dws=00000'
+path2 = os.path.join('../data/ds_salaries.csv')
+dsSalary_df = pd.read_csv(path2)
+# Transformation of the codes of the categorical variables
 
-# Use requests to get the content from the URL
-response = requests.get(excel_url)
+dsSalary_df['experience_level'] = dsSalary_df['experience_level'].replace(
+    {'SE': 'Expert', 'MI': 'Intermediate', 'EN': 'Junior', 'EX': 'Director'})
 
-# Check if the request was successful (status code 200)
-if response.status_code == 200:
-    # Read the Excel content from the response
-    excel_content = response.content
+dsSalary_df['employment_type'] = dsSalary_df['employment_type'].replace(
+    {'FT': 'Full-time', 'CT': 'Contract', 'FL': 'Freelance', 'PT': 'Part-time'})
 
-    # Use io.BytesIO to create a buffer and read_excel to read from the buffer
-    df = pd.read_excel(io.BytesIO(excel_content))
 
-    # Convert the DataFrame to CSV
-    csv_content = df.to_csv(index=False)
+def country_name(country_code):
+    try:
+        return pycountry.countries.get(alpha_2=country_code).name
+    except:
+        return 'other'
 
-    # Save the CSV content to a file
-    global_salary_csv_path = os.path.join(data, 'global_salary.csv')
-    with open(global_salary_csv_path, 'w', encoding='utf-8') as csv_file:
-        csv_file.write(csv_content)
 
-    print("Conversion to CSV successful. CSV file saved as 'global_salary.csv'")
+dsSalary_df['company_location'] = dsSalary_df['company_location'].apply(country_name)
+dsSalary_df['employee_residence'] = dsSalary_df['employee_residence'].apply(country_name)
 
-    # Cleaning
-    with sqlite3.connect(global_salary_db_path) as conn:
-        df.to_sql('global_salary', conn, index=False, if_exists='replace')
+# Save to SQLite database
+with sqlite3.connect(ds_salary_db_path) as conn:
+    dsSalary_df.to_sql('ds_salaries', conn, index=False, if_exists='replace')
 
-else:
-    print(f"Failed to retrieve data. Status code: {response.status_code}")
+print("Global Data Science Salary Data loaded successfully!")
 
-print("Global Salary Data loaded successfully!")

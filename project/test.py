@@ -1,115 +1,66 @@
 import unittest
 import os
-import opendatasets as od
 import sqlite3
 import pandas as pd
-import io
-import requests
-import kaggle
-import shutil
-from kaggle.api.kaggle_api_extended import KaggleApi
-import zipfile
+from .pipeline import extract_and_move, extract_company_name
 
-# Testing automated pipeline
-class TestDownloadAndSaveDataset(unittest.TestCase):
+
+class TestSalaryDataProcessing(unittest.TestCase):
 
     def setUp(self):
-        # Set up necessary variables for testing
-        self.dataset_url = 'https://www.kaggle.com/datasets/thedevastator/jobs-dataset-from-glassdoor/download?datasetVersionNumber=2'
-        self.file_path = '..data/dataset-folder/salary_data_cleaned.csv'
-        self.db_path = '../data/clean_salary.sqlite'
+        # Set up paths
+        self.data_folder = '../data'
+        self.dataset_folder = os.path.join(self.data_folder, 'dataset-folder')
+        self.clean_salary_db_path = os.path.join(self.data_folder, 'clean_salary.sqlite')
+        self.ds_salary_db_path = os.path.join(self.data_folder, 'ds_salaries.sqlite')
+        self.cleancsv_path = os.path.join(self.dataset_folder, 'salary_data_cleaned.csv')
+        self.ds_salary_path = os.path.join('../data', 'ds_salaries.csv')
 
-        self.excel_url = "https://query.data.world/s/7swlcctjkj7vxuhxta7oxjtcy36ptk?dws=00000"
-        self.csv_path = "../data/global_salary.csv"
-        self.b_path = "../data/global_salary.sqlite"
+        # Call your functions to set up the environment
+        # ...
 
-    def download_dataset(self):
-        def extract_and_move(old_name: str, new_name: str):
-            shutil.move(old_name, new_name)
-            with zipfile.ZipFile(new_name, 'r') as zip_ref:
-                zip_ref.extractall('../data')
+    def test_extract_and_move(self):
+        # Test the extract_and_move function
+        extract_and_move('file.zip', self.dataset_folder, self.data_folder)
+        # Check if the extracted folder exists
+        self.assertTrue(os.path.exists(self.dataset_folder))
 
-        api = KaggleApi()
-        api.authenticate()
+    def test_clean_salary_data_processing(self):
+        # Test the clean salary data processing steps
+        cleancsv_df = pd.read_csv(self.cleancsv_path)
 
-        # Add your Kaggle dataset download and preprocessing logic here
+        # Test if the 'company' column is created
+        self.assertTrue('company' in cleancsv_df.columns)
 
-        # Example:
-        api.dataset_download_file('thedevastator/jobs-dataset-from-glassdoor', 'file.zip')
+        # Test if the 'Company Name' column is dropped
+        self.assertFalse('Company Name' in cleancsv_df.columns)
 
-        extract_and_move('file.zip', '../data/dataset-folder')
+        # Test if the dataset is cleaned
+        self.assertNotEqual(len(cleancsv_df), 0)
 
-    def read_csv_and_save_to_sql(self, file_path, db_path, table_name):
-        cleancsv_df = pd.read_csv(file_path)
-        # Cleaning
-        cleancsv_df = cleancsv_df[(cleancsv_df['Sector'] != 'unknown') & (cleancsv_df['Sector'] != '-1')]
-        # Check if DataFrame is not empty
-        self.assertFalse(cleancsv_df.empty)
+        # Test if the SQLite database is created
+        with sqlite3.connect(self.clean_salary_db_path) as conn:
+            result = pd.read_sql_query("SELECT * FROM clean_salary", conn)
+        self.assertNotEqual(len(result), 0)
 
-        # Connect to SQLite database and save the DataFrame
-        conn = sqlite3.connect(db_path)
-        cleancsv_df.to_sql(table_name, conn, index=False, if_exists='replace')
+    def test_ds_salary_data_processing(self):
+        # Test the data science salary data processing steps
+        dsSalary_df = pd.read_csv(self.ds_salary_path)
 
-        # Check if the table exists in the database
-        cursor = conn.cursor()
-        cursor.execute(f"SELECT name FROM sqlite_master WHERE type='table' AND name='{table_name}';")
-        result = cursor.fetchone()
-        self.assertIsNotNone(result)
+        # Test if the 'experience_level' column is transformed
+        self.assertNotEqual(dsSalary_df['experience_level'].nunique(), 4)
 
-        # Close the database connection
-        conn.close()
+        # Test if the 'employment_type' column is transformed
+        self.assertNotEqual(dsSalary_df['employment_type'].nunique(), 4)
 
-    def download_excel_convert_to_csv_save_to_sql(self, excel_url, csv_path, db_path, table_name):
-        # Use requests to get the content from the URL
-        response = requests.get(excel_url)
+        # Test if the 'company_location' and 'employee_residence' columns are transformed
+        self.assertNotEqual(dsSalary_df['company_location'].nunique(), 0)
+        self.assertNotEqual(dsSalary_df['employee_residence'].nunique(), 0)
 
-        # Check if the request was successful (status code 200)
-        if response.status_code == 200:
-            # Read the Excel content from the response
-            excel_content = response.content
-
-            # Use io.BytesIO to create a buffer and read_excel to read from the buffer
-            df = pd.read_excel(io.BytesIO(excel_content))
-
-            # Convert the DataFrame to CSV
-            csv_content = df.to_csv(index=False)
-
-            # Save the CSV content to a file
-            with open('../data/global_salary.csv', 'w', encoding='utf-8') as csv_file:
-                csv_file.write(csv_content)
-
-            print("Conversion to CSV successful. CSV file saved as 'global_salary.csv'")
-
-            # Cleaning
-            conn = sqlite3.connect(db_path)
-            df.to_sql(table_name, conn, index=False, if_exists='replace')
-            conn.close()
-
-        else:
-            print(f"Failed to retrieve data. Status code: {response.status_code}")
-
-    def test_download_and_save_dataset(self):
-        # Download dataset
-        self.download_dataset(self.dataset_url)
-
-        # Check if the downloaded file exists
-        self.assertTrue(os.path.exists(self.file_path))
-
-
-        # Read CSV and save to SQLite
-        self.read_csv_and_save_to_sql(self.file_path, self.db_path, 'clean_salary')
-
-        #self.assertTrue(os.path.exists(self.csv_path))
-        # Download Excel, convert to CSV, and save to SQLite
-        self.download_excel_convert_to_csv_save_to_sql(self.excel_url, self.csv_path, self.b_path, 'global_salary')
-
-    def tearDown(self):
-        # Clean up after the test
-        '''
-        for file_path in [self.file_path, self.db_path, self.csv_path, self.b_path]:
-            if os.path.exists(file_path):
-                os.remove(file_path)
-                '''
+        # Test if the SQLite database is created
+        with sqlite3.connect(self.ds_salary_db_path) as conn:
+            result = pd.read_sql_query("SELECT * FROM ds_salaries", conn)
+        self.assertNotEqual(len(result), 0)
 
 
 if __name__ == '__main__':
