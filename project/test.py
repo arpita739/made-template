@@ -2,16 +2,16 @@ import unittest
 import os
 import sqlite3
 import pandas as pd
-from .pipeline import extract_company_name
+
 
 
 class TestSalaryDataProcessing(unittest.TestCase):
 
     def setUp(self):
         # Set up paths
-        self.data_folder = '../project'
+
         self.data='../data'
-        self.dataset_folder = os.path.join(self.data_folder, '../dataset-folder')
+
         self.clean_salary_db_path = os.path.join(self.data, 'clean_salary.sqlite')
         self.ds_salary_db_path = os.path.join(self.data, 'ds_salaries.sqlite')
         self.cleancsv_path = '../dataset-folder/salary_data_cleaned.csv'
