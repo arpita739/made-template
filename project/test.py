@@ -11,7 +11,6 @@ class TestSalaryDataProcessing(unittest.TestCase):
         # Set up paths
 
         self.data='../data'
-
         self.clean_salary_db_path = os.path.join(self.data, 'clean_salary.sqlite')
         self.ds_salary_db_path = os.path.join(self.data, 'ds_salaries.sqlite')
         self.cleancsv_path = '../dataset-folder/salary_data_cleaned.csv'
