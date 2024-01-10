@@ -37,8 +37,8 @@ jobs:
       - name: Setup Kaggle
         run: |
           mkdir $HOME/.kaggle
-          echo '{"username":"${{ secrets.KAGGLE_USERNAME }}","key":"${{ secrets.KAGGLE_KEY }}"}' > $HOME/.kaggle/kaggle.json
-          chmod 600 $HOME/.kaggle/kaggle.json
+          echo '{"username":"${{ secrets.KAGGLE_USERNAME }}","key":"${{ secrets.KAGGLE_KEY }}"}' > $HOME/.kaggle/runner/kaggle.json
+          chmod 600 $HOME/.kaggle/runner/kaggle.json
   job2_build:
     runs-on: ubuntu-latest
     needs: [job1_setup_environment, kaggle-pipeline]
