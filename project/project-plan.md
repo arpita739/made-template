@@ -9,6 +9,8 @@ Data Science Jobs Salary Prediction
 1. Identify which factors most affect data science salaries
 2. Determine which states and cities offer the highest paying data science jobs
 3. Predict what a data science job posting will pay based on the job description
+4. Uncover the Trending Job Titles in the Data Field across the United States and Worldwide.
+5. Assess the Future Sustainability of Careers in Data Science,Considering Remote Work Opportunities and Evolving Salary Structures.
 
 ## Description
 
@@ -21,14 +23,20 @@ Furthermore, keeping up with emerging technologies that may impact the job marke
 
 <!-- Describe each datasources you plan to use in a section. Use the prefic "DatasourceX" where X is the id of the datasource. -->
 
-### Datasource1: ExampleSource
-* Meta data : https://www.kaggle.com/datasets/thedevastator/jobs-dataset-from-glassdoor/data
-* Data URL: https://www.kaggle.com/datasets/thedevastator/jobs-dataset-from-glassdoor/
-* Data Type: CSV
-* Collection Methodology: Web Scrapping
+##### Data Source 1: <br>
+**Data URL**: https://www.kaggle.com/datasets/thedevastator/jobs-dataset-from-glassdoor/ <br>
+**Data Type**: CSV format <br>
+**Total datasize**: 741
+**Dataset Year**: 2017
 
-This dataset contains job postings from Glassdoor.com from 2017-2018. This dataset includes features such as job title, salary estimate, job description, rating, company name, location, headquarters, size, founded, type of ownership, industry, sector, revenue, competitors compile a list of the most important features in this dataset. , hourly wage minima and maxima,, avg_salary, num_comp,sdesc_len 
+About: This dataset encapsulates job postings sourced from Glassdoor.com, spanning the period of 2017-2018 and focusing on positions within the United States. The dataset is enriched with a diverse set of features providing comprehensive insights into each job listing.
 
+##### Data Source 2:<br>
+**Data URl**: https://www.kaggle.com/datasets/arnabchaki/data-science-salaries-2023 <br>
+**Data Type**:  CSV format<br>
+**Total datasize**: 3755 <br>
+**Dataset Year**:2020-2023
+The analysis was conducted utilizing a dataset that encompasses pertinent information regarding Data Scientists from 2020-2023. 
 
 ## Work Packages
 
@@ -37,12 +45,11 @@ This dataset contains job postings from Glassdoor.com from 2017-2018. This datas
 <ol>
         <li>Clean the data by removing duplicates and handling missing values. <a href="https://github.com/arpita739/made-template/issues/1" target="_blank">[i1]</a></li>
         <li>Conduct basic statistics, visualizations, and summary reports on the dataset to understand its characteristics.<a href="https://github.com/arpita739/made-template/issues/2" target="_blank">[i2]</a></li>
-        <li>Identify key features (e.g., job title, location, company rating) that are likely to influence salary predictions.<a href="https://github.com/arpita739/made-template/issues/3" target="_blank">[i3]</a></li>
-        <li>Convert categorical variables (e.g., job titles, industries) into numerical format using techniques like one-hot encoding.<a href="https://github.com/arpita739/made-template/issues/4" target="_blank">[i4]</a></li>
+        <li>Answering broad Questions from Statistics<a href="https://github.com/arpita739/made-template/issues/2" target="_blank">[i4]</a></li>
+        <li>Identify key features  that are likely to influence salary predictions.<a href="https://github.com/arpita739/made-template/issues/3" target="_blank">[i3]</a></li>
         <li>Decide on which regression algorithms (e.g., linear regression, random forest) to use for salary prediction. Exploring other machine learning algorithms for the task.<a href="https://github.com/arpita739/made-template/issues/5" target="_blank">[i5]</a></li>
         <li>Train the selected models on the training data and evaluate their performance using metrics like Mean Absolute Error (MAE), Mean Square Error(MSE).<a href="https://github.com/arpita739/made-template/issues/6" target="_blank">[i6]</a></li>
         <li>Fine-tune model parameters (e.g., learning rate, max depth) to optimize performance.<a href="https://github.com/arpita739/made-template/issues/7" target="_blank">[71]</a></li>
-        <li>Analyze which features have the most influence on salary predictions using techniques like permutation importance.<a href="https://github.com/arpita739/made-template/issues/8" target="_blank">[i8]</a></li>
         <li>Analyze data to determine which states and cities offer the highest paying data science jobs.<a href="https://github.com/arpita739/made-template/issues/9" target="_blank">[i9]</a></li>
         <li>Develop a method to extract relevant information from job descriptions for salary prediction.<a href="https://github.com/arpita739/made-template/issues/10" target="_blank">[i10]</a></li>
         <li>Implement k-fold cross-validation to ensure the model's robustness and generalization.<a href="https://github.com/arpita739/made-template/issues/11" target="_blank">[i11]</a></li>
