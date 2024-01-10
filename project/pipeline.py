@@ -2,10 +2,10 @@ import sqlite3
 import pandas as pd
 import io
 import requests
-import kaggle
+#import kaggle
 import shutil
 import pycountry
-from kaggle.api.kaggle_api_extended import KaggleApi
+#from kaggle.api.kaggle_api_extended import KaggleApi
 import zipfile
 import os
 
