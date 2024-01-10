@@ -19,15 +19,15 @@ data= '../data'
 dataset_folder = os.path.join(data, 'dataset-folder')
 clean_salary_db_path = os.path.join(data, 'clean_salary.sqlite')
 ds_salary_db_path =os.path.join(data,'ds_salaries.sqlite')
-'''
-api = KaggleApi()
-api.authenticate()
+
+#api = KaggleApi()
+#api.authenticate()
 
 # Example:
-api.dataset_download_file('thedevastator/jobs-dataset-from-glassdoor','file.zip')
+#api.dataset_download_file('thedevastator/jobs-dataset-from-glassdoor','file.zip')
 
-extract_and_move('file.zip', dataset_folder, data_folder)
-'''
+#extract_and_move('file.zip', dataset_folder, data_folder)
+
 # Read CSV file
 file_path = os.path.join(dataset_folder, 'salary_data_cleaned.csv')
 cleancsv_df = pd.read_csv(file_path)

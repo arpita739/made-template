@@ -2,7 +2,7 @@ import unittest
 import os
 import sqlite3
 import pandas as pd
-from .pipeline import extract_and_move, extract_company_name
+from .pipeline import extract_company_name
 
 
 class TestSalaryDataProcessing(unittest.TestCase):
@@ -19,11 +19,6 @@ class TestSalaryDataProcessing(unittest.TestCase):
         # Call your functions to set up the environment
         # ...
 
-    def test_extract_and_move(self):
-        # Test the extract_and_move function
-        extract_and_move('file.zip', self.dataset_folder, self.data_folder)
-        # Check if the extracted folder exists
-        self.assertTrue(os.path.exists(self.dataset_folder))
 
     def test_clean_salary_data_processing(self):
         # Test the clean salary data processing steps

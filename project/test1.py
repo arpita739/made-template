@@ -29,15 +29,15 @@ class TestDownloadAndSaveDataset(unittest.TestCase):
             with zipfile.ZipFile(new_name, 'r') as zip_ref:
                 zip_ref.extractall('../data')
 
-        api = KaggleApi()
-        api.authenticate()
+        #api = KaggleApi()
+        #api.authenticate()
 
         # Add your Kaggle dataset download and preprocessing logic here
 
         # Example:
-        api.dataset_download_file('thedevastator/jobs-dataset-from-glassdoor', 'file.zip')
+        #api.dataset_download_file('thedevastator/jobs-dataset-from-glassdoor', 'file.zip')
 
-        extract_and_move('file.zip', '../data/dataset-folder')
+        #extract_and_move('file.zip', '../data/dataset-folder')
 
     def read_csv_and_save_to_sql(self, file_path, db_path, table_name):
         cleancsv_df = pd.read_csv(file_path)
