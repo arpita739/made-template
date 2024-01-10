@@ -36,7 +36,8 @@ class TestSalaryDataProcessing(unittest.TestCase):
         # Test the data science salary data processing steps
         dsSalary_df = pd.read_csv(self.ds_salary_path)
 
-
+        # Test if the dataset is cleaned
+        self.assertNotEqual(len(dsSalary_df), 0)
 
         # Test if the SQLite database is created
         with sqlite3.connect(self.ds_salary_db_path) as conn:
