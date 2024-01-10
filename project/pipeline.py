@@ -20,8 +20,8 @@ data= '../data'
 #dataset_folder = os.path.join(data_folder, 'dataset-folder')
 clean_salary_db_path = os.path.join(data, 'clean_salary.sqlite')
 ds_salary_db_path = os.path.join(data, 'ds_salaries.sqlite')
-cleancsv_path = 'dataset-folder/salary_data_cleaned.csv'
-ds_salary_path = 'dataset_folder/ds_salaries.csv'
+cleancsv_path = './dataset-folder/salary_data_cleaned.csv'
+ds_salary_path = './dataset_folder/ds_salaries.csv'
 
 
 #api = KaggleApi()
@@ -33,7 +33,7 @@ ds_salary_path = 'dataset_folder/ds_salaries.csv'
 #extract_and_move('file.zip', dataset_folder, data_folder)
 
 # Read CSV file
-file_path = 'dataset-folder/salary_data_cleaned.csv'
+file_path = './dataset-folder/salary_data_cleaned.csv'
 cleancsv_df = pd.read_csv(file_path)
 # Define a function to extract the company name before '\n'
 def extract_company_name(row):
@@ -53,7 +53,7 @@ with sqlite3.connect(clean_salary_db_path) as conn:
 
 print("American Salary Data loaded successfully!")
 
-path2 = 'dataset_folder/ds_salaries.csv'
+path2 = './dataset_folder/ds_salaries.csv'
 dsSalary_df = pd.read_csv(path2)
 # Transformation of the codes of the categorical variables
 
