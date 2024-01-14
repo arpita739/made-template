@@ -64,7 +64,6 @@ pipeline WeatherPipeline{
     WeatherExtractor
     ->ZipInterpreter
     -> WeatherFilePicker
-    -> WeatherTextFileInterpreter
     -> WeatherCSVInterpreter
     -> TextInterpreter
     ->ColDeleter
