@@ -43,13 +43,13 @@ pipeline WeatherPipeline{
        ];
      }
 
-     block CelsiusToFahrenheitTransformer oftype TableTransformer {
+     block TransformerA oftype TableTransformer {
        inputColumns: ['Temperatur in °C (DWD)'];
        outputColumn: 'Temperatur';
 
        use:TempConvert ;
      }
-     block CelsiusToFahrenheitTransformer oftype TableTransformer {
+     block TransformerB oftype TableTransformer {
        inputColumns: ['Batterietemperatur in °C'];
        outputColumn: 'Batterietemperatur';
 
@@ -70,8 +70,8 @@ pipeline WeatherPipeline{
     ->ColDeleter
     ->ColDataSelector
     -> WeatherTableInterpreter
-    ->CelsiusToFahrenheitTransformer
-    ->CelsiusToFahrenheitTransformer
+    ->TransformerA
+    ->TransformerB
     -> WeatherLoader;
 
 }
