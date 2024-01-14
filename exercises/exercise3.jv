@@ -59,7 +59,7 @@ pipeline WeatherPipeline{
        use: CelsiusToFahrenheit;
      }
       block WeatherColumnDeleter oftype ColumnDeleter {
-       delete: [Geraet aktiv:];
+       delete: ["Latitude (WGS84)","Longitude (WGS84)"];
      }
     block WeatherLoader oftype SQLiteLoader {
             table: "temperatures";
