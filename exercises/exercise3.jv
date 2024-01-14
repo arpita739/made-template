@@ -1,6 +1,7 @@
 pipeline WeatherPipeline{
 
     WeatherGTFSExtractor
+    ->GtfsRTTripUpdateInterpreter
     -> WeatherFilePicker
     -> WeatherTextFileInterpreter
     -> WeatherCSVInterpreter
@@ -14,6 +15,11 @@ pipeline WeatherPipeline{
 
         url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
     }
+     block GtfsRTTripUpdateInterpreter oftype GtfsRTInterpreter{
+   entity: "data";
+    }
+
+
      block WeatherFilePicker oftype FilePicker {
        path: "/data.csv";
      }
