@@ -10,7 +10,7 @@ pipeline WeatherPipeline{
     -> WeatherLoader;
 
 
-    block WeatherGTFSExtractor  oftype HttpExtractor {
+    block WeatherGTFSExtractor  oftype GTFSExtractor {
 
         url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
     }
