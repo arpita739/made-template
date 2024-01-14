@@ -1,0 +1,64 @@
+pipeline WeatherPipeline{
+
+    WeatherGTFSExtractor
+    -> WeatherFilePicker
+    -> WeatherTextFileInterpreter
+    -> WeatherCSVInterpreter
+    -> WeatherTableInterpreter
+    -> CelsiusToFahrenheitTransformer
+    -> WeatherColumnDeleter
+    -> WeatherLoader;
+
+
+    block WeatherGTFSExtractor  oftype HttpExtractor {
+
+        url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
+    }
+     block WeatherFilePicker oftype FilePicker {
+       path: "/data.csv";
+     }
+
+    block WeatherCSVInterpreter oftype CSVInterpreter {
+	delimiter: ';';
+    }
+
+     block WeatherTableInterpreter oftype TableInterpreter {
+       header: true;
+       columns: [
+        "Geraet" oftype int,
+        "Hersteller" oftype text,
+        "Model" oftype text,
+        "Monat" oftype int,
+        "Temperatur in °C (DWD)" oftype decimal,
+        "Batterietemperatur in °C" oftype decimal,
+        "Geraet aktiv" oftype text,
+
+       ];
+     }
+      transform CelsiusToFahrenheit {
+       from Celsius oftype decimal;
+       to Fahrenheit oftype decimal;
+       Fahrenheit: (Celsius * 9/5) + 32;
+     }
+     block CelsiusToFahrenheitTransformer oftype TableTransformer {
+       inputColumns: ['Temperatur in °C (DWD)'];
+       outputColumn: 'Temperatur';
+
+       use: CelsiusToFahrenheit;
+     }
+     block CelsiusToFahrenheitTransformer oftype TableTransformer {
+       inputColumns: ['Batterietemperatur in °C'];
+       outputColumn: 'Batterietemperatur';
+
+       use: CelsiusToFahrenheit;
+     }
+      block WeatherColumnDeleter oftype ColumnDeleter {
+       delete: [Geraet aktiv:];
+     }
+    block WeatherLoader oftype SQLiteLoader {
+            table: "temperatures";
+            file: "./temperatures.sqlite";
+            dropTable: false;
+            }
+
+}
