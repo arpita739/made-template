@@ -8,18 +8,7 @@ transform TempConvert
 
 pipeline WeatherPipeline{
 
-    WeatherExtractor
-    ->ZipInterpreter
-    -> WeatherFilePicker
-    -> WeatherTextFileInterpreter
-    -> WeatherCSVInterpreter
-    -> TextInterpreter
-    ->ColDeleter
-    ->ColDataSelector
-    -> WeatherTableInterpreter
-    ->CelsiusToFahrenheitTransformer
-    ->CelsiusToFahrenheitTransformer
-    -> WeatherLoader;
+
 
 
     block WeatherExtractor  oftype HttpExtractor {
@@ -72,5 +61,17 @@ pipeline WeatherPipeline{
             file: "./temperatures.sqlite";
             dropTable: false;
             }
+    WeatherExtractor
+    ->ZipInterpreter
+    -> WeatherFilePicker
+    -> WeatherTextFileInterpreter
+    -> WeatherCSVInterpreter
+    -> TextInterpreter
+    ->ColDeleter
+    ->ColDataSelector
+    -> WeatherTableInterpreter
+    ->CelsiusToFahrenheitTransformer
+    ->CelsiusToFahrenheitTransformer
+    -> WeatherLoader;
 
 }
