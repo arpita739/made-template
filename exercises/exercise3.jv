@@ -36,21 +36,21 @@ pipeline WeatherPipeline{
         "Hersteller" oftype text,
         "Model" oftype text,
         "Monat" oftype integer,
-        "Temperatur in °C (DWD)" oftype decimal,
-        "Batterietemperatur in °C" oftype decimal,
+        "Temperatur" oftype decimal,
+        "Batterietemperatur" oftype decimal,
         "Geraet aktiv" oftype text,
 
        ];
      }
 
      block TransformerA oftype TableTransformer {
-       inputColumns: ['Temperatur in °C (DWD)'];
+       inputColumns: ['Temperatur'];
        outputColumn: 'Temperatur';
 
        use:TempConvert ;
      }
      block TransformerB oftype TableTransformer {
-       inputColumns: ['Batterietemperatur in °C'];
+       inputColumns: ['Batterietemperatur'];
        outputColumn: 'Batterietemperatur';
 
        use:TempConvert ;
