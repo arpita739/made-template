@@ -1,23 +1,32 @@
+transform TempConvert
+{
+  from tempCelsius oftype decimal;
+  to tempFahrenheit oftype decimal;
+
+  tempFahrenheit: (tempCelsius * 9/5) + 32;
+}
+
 pipeline WeatherPipeline{
 
-    WeatherGTFSExtractor
-    ->GtfsRTTripUpdateInterpreter
+    WeatherExtractor
+    ->ZipInterpreter
     -> WeatherFilePicker
     -> WeatherTextFileInterpreter
     -> WeatherCSVInterpreter
+    -> TextInterpreter
+    ->ColDeleter
+    ->ColDataSelector
     -> WeatherTableInterpreter
-    -> CelsiusToFahrenheitTransformer
-    -> WeatherColumnDeleter
+    ->CelsiusToFahrenheitTransformer
+    ->CelsiusToFahrenheitTransformer
     -> WeatherLoader;
 
 
-    block WeatherGTFSExtractor  oftype GTFSExtractor {
+    block WeatherExtractor  oftype HttpExtractor {
 
         url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip";
     }
-     block GtfsRTTripUpdateInterpreter oftype GtfsRTInterpreter{
-   entity: "data";
-    }
+    block ZipInterpreter oftype ArchiveInterpreter { archiveType: "zip";}
 
 
      block WeatherFilePicker oftype FilePicker {
@@ -27,40 +36,37 @@ pipeline WeatherPipeline{
     block WeatherCSVInterpreter oftype CSVInterpreter {
 	delimiter: ';';
     }
+    block TextInterpreter oftype TextFileInterpreter {}
+    block ColDeleter oftype ColumnDeleter { delete: [column F, column G, column H, column I]; }
+    block ColDataSelector oftype CellRangeSelector {select: range A1:K*;}
 
      block WeatherTableInterpreter oftype TableInterpreter {
        header: true;
        columns: [
-        "Geraet" oftype int,
+        "Geraet" oftype integer,
         "Hersteller" oftype text,
         "Model" oftype text,
-        "Monat" oftype int,
+        "Monat" oftype integer,
         "Temperatur in °C (DWD)" oftype decimal,
         "Batterietemperatur in °C" oftype decimal,
         "Geraet aktiv" oftype text,
 
        ];
      }
-      transform CelsiusToFahrenheit {
-       from Celsius oftype decimal;
-       to Fahrenheit oftype decimal;
-       Fahrenheit: (Celsius * 9/5) + 32;
-     }
+
      block CelsiusToFahrenheitTransformer oftype TableTransformer {
        inputColumns: ['Temperatur in °C (DWD)'];
        outputColumn: 'Temperatur';
 
-       use: CelsiusToFahrenheit;
+       use:TempConvert ;
      }
      block CelsiusToFahrenheitTransformer oftype TableTransformer {
        inputColumns: ['Batterietemperatur in °C'];
        outputColumn: 'Batterietemperatur';
 
-       use: CelsiusToFahrenheit;
+       use:TempConvert ;
      }
-      block WeatherColumnDeleter oftype ColumnDeleter {
-       delete: ["Latitude (WGS84)","Longitude (WGS84)"];
-     }
+
     block WeatherLoader oftype SQLiteLoader {
             table: "temperatures";
             file: "./temperatures.sqlite";
