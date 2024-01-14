@@ -26,11 +26,12 @@ pipeline WeatherPipeline{
 	delimiter: ';';
     }
     block TextInterpreter oftype TextFileInterpreter {}
+
     block ColDeleter oftype ColumnDeleter { delete: [column F, column G, column H, column I]; }
     block ColDataSelector oftype CellRangeSelector {select: range A1:K*;}
 
      block WeatherTableInterpreter oftype TableInterpreter {
-       header: true;
+       header: false;
        columns: [
         "Geraet" oftype integer,
         "Hersteller" oftype text,
@@ -64,10 +65,10 @@ pipeline WeatherPipeline{
     WeatherExtractor
     ->ZipInterpreter
     -> WeatherFilePicker
-    -> WeatherCSVInterpreter
     -> TextInterpreter
-    ->ColDeleter
+    -> WeatherCSVInterpreter
     ->ColDataSelector
+    ->ColDeleter
     -> WeatherTableInterpreter
     ->TransformerA
     ->TransformerB
