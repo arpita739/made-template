@@ -3,6 +3,7 @@
 ![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
 
 # Data Science Job Salary Analysis
+![Data Science](Data-Science-Studium.jpeg)
 
 ## Introduction
 
@@ -77,7 +78,7 @@ This comprehensive dataset offers a wealth of information for analysis and explo
 
 ## Interactive session
 
--[Interactive](https://arpita739.github.io/made-template/project/report.html)
+- [Interactive Session](https://arpita739.github.io/made-template/project/report.html)
 
 ## Usage
 
