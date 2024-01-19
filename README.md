@@ -76,7 +76,7 @@ This comprehensive dataset offers a wealth of information for analysis and explo
 
 - [Data Science Job Salary Analysis Project](https://github.com/arpita739/made-template/blob/main/project/report.ipynb)
 
-## Interactive session
+## Interactive Project Link
 
 - [Interactive Session](https://arpita739.github.io/made-template/project/report.html)
 
