@@ -1,4 +1,4 @@
-![Python Version](https://img.shields.io/badge/Python-3.8%2B-blue)
+[![Python Version](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/downloads/release/python-3110/)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
 
@@ -76,8 +76,42 @@ This comprehensive dataset offers a wealth of information for analysis and explo
 - [Data Science Job Salary Analysis Project](https://github.com/arpita739/made-template/blob/main/project/report.ipynb)
 
 ## Interactive session
-- <iframe src="https://github.com/arpita739/made-template/blob/main/project/report.html" width="600" height="400"></iframe>
 
 
+
+## Usage
+
+To use this project, follow these steps:
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/arpita739/made-template.git
+   cd made-template
+   ```
+
+2. **Run the Pipeline Script:**
+   - Before running the pipeline script, ensure you have the required dependencies installed.
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   - Execute the following command to run the pipeline script and download the datasets from Kaggle.
+   ```bash
+   bash pipeline.sh
+   ```
+
+   The script will handle the download and extraction of datasets.
+
+3. **Explore the Jupyter Notebooks:**
+   - After downloading the datasets, explore the analysis by running the provided Jupyter Notebooks.
+   ```bash
+   jupyter notebook
+   ```
+
+4. **Modify and Contribute:**
+   - Feel free to modify the analysis or extend it according to your needs.
+   - If you make improvements, consider contributing back by submitting a pull request.
+
+Please note that you need to have a Kaggle account and API key configured on your system for the pipeline script to work correctly. Refer to the Kaggle API documentation for more information on setting up your credentials: [Kaggle API Documentation](https://www.kaggle.com/docs/api).
 
 
