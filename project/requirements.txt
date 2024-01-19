@@ -1,0 +1,4 @@
+kaggle
+opendatasets
+pandas
+pycountry

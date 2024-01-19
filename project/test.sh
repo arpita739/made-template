@@ -1,7 +1,4 @@
 #!/bin/bash
-pip install kaggle
-pip install opendatasets
-pip install pandas
-pip install pycountry
+pip install -r requirements.txt
 python pipeline.py
 python test.py

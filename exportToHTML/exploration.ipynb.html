@@ -1,0 +1,388 @@
+<html>
+<head>
+<title>exploration.ipynb</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d4d4d4;}
+</style>
+</head>
+<body bgcolor="#1e1e1e">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+exploration.ipynb</font>
+</center></td></tr></table>
+<pre><span class="s0">{ 
+ &quot;cells&quot;: [ 
+  { 
+   &quot;cell_type&quot;: &quot;markdown&quot;, 
+   &quot;id&quot;: &quot;70e0f77d&quot;, 
+   &quot;metadata&quot;: {}, 
+   &quot;source&quot;: [ 
+    &quot;# Data Exploration&quot; 
+   ] 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;markdown&quot;, 
+   &quot;id&quot;: &quot;70b73520&quot;, 
+   &quot;metadata&quot;: {}, 
+   &quot;source&quot;: [ 
+    &quot;This method describes step by step method of exploring the dataset&quot; 
+   ] 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;markdown&quot;, 
+   &quot;id&quot;: &quot;cf1114e7&quot;, 
+   &quot;metadata&quot;: {}, 
+   &quot;source&quot;: [ 
+    &quot;Install Dependencies&quot; 
+   ] 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;code&quot;, 
+   &quot;execution_count&quot;: 1, 
+   &quot;id&quot;: &quot;5d27b0b9&quot;, 
+   &quot;metadata&quot;: { 
+    &quot;ExecuteTime&quot;: { 
+     &quot;end_time&quot;: &quot;2024-01-10T00:00:55.492730Z&quot;, 
+     &quot;start_time&quot;: &quot;2024-01-10T00:00:51.712861Z&quot; 
+    } 
+   }, 
+   &quot;outputs&quot;: [ 
+    { 
+     &quot;name&quot;: &quot;stdout&quot;, 
+     &quot;output_type&quot;: &quot;stream&quot;, 
+     &quot;text&quot;: [ 
+      &quot;Requirement already satisfied: pandas in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (1.5.3)\r\n&quot;, 
+      &quot;Requirement already satisfied: python-dateutil&gt;=2.8.1 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from pandas) (2.8.2)\r\n&quot;, 
+      &quot;Requirement already satisfied: pytz&gt;=2020.1 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from pandas) (2023.3.post1)\r\n&quot;, 
+      &quot;Requirement already satisfied: numpy&gt;=1.21.0 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from pandas) (1.24.2)\r\n&quot;, 
+      &quot;Requirement already satisfied: six&gt;=1.5 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from python-dateutil&gt;=2.8.1-&gt;pandas) (1.16.0)\r\n&quot;, 
+      &quot;Note: you may need to restart the kernel to use updated packages.\n&quot;, 
+      &quot;Requirement already satisfied: SQLAlchemy==1.4.46 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (1.4.46)\r\n&quot;, 
+      &quot;Requirement already satisfied: greenlet!=0.4.17 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from SQLAlchemy==1.4.46) (2.0.2)\r\n&quot;, 
+      &quot;Note: you may need to restart the kernel to use updated packages.\n&quot;, 
+      &quot;Requirement already satisfied: matplotlib in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (3.8.2)\r\n&quot;, 
+      &quot;Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from matplotlib) (1.2.0)\r\n&quot;, 
+      &quot;Requirement already satisfied: cycler&gt;=0.10 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from matplotlib) (0.12.1)\r\n&quot;, 
+      &quot;Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from matplotlib) (4.47.0)\r\n&quot;, 
+      &quot;Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from matplotlib) (1.4.5)\r\n&quot;, 
+      &quot;Requirement already satisfied: numpy&lt;2,&gt;=1.21 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from matplotlib) (1.24.2)\r\n&quot;, 
+      &quot;Requirement already satisfied: packaging&gt;=20.0 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from matplotlib) (23.1)\r\n&quot;, 
+      &quot;Requirement already satisfied: pillow&gt;=8 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from matplotlib) (10.2.0)\r\n&quot;, 
+      &quot;Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from matplotlib) (3.1.1)\r\n&quot;, 
+      &quot;Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from matplotlib) (2.8.2)\r\n&quot;, 
+      &quot;Requirement already satisfied: six&gt;=1.5 in /Users/arpitahalder/opt/anaconda3/envs/saki/lib/python3.11/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib) (1.16.0)\r\n&quot;, 
+      &quot;Note: you may need to restart the kernel to use updated packages.\n&quot; 
+     ] 
+    } 
+   ], 
+   &quot;source&quot;: [ 
+    &quot;%pip install pandas\n&quot;, 
+    &quot;%pip install SQLAlchemy==1.4.46\n&quot;, 
+    &quot;%pip install matplotlib&quot; 
+   ] 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;code&quot;, 
+   &quot;execution_count&quot;: 2, 
+   &quot;id&quot;: &quot;9faee9bb&quot;, 
+   &quot;metadata&quot;: { 
+    &quot;ExecuteTime&quot;: { 
+     &quot;end_time&quot;: &quot;2024-01-10T00:00:56.080252Z&quot;, 
+     &quot;start_time&quot;: &quot;2024-01-10T00:00:55.496981Z&quot; 
+    } 
+   }, 
+   &quot;outputs&quot;: [], 
+   &quot;source&quot;: [ 
+    &quot;import pandas as pd\n&quot;, 
+    &quot;\n&quot;, 
+    &quot;# Read the table Salary into a Pandas dataframe\n&quot;, 
+    &quot;df = pd.read_sql_table('clean_salary', 'sqlite:///../data/clean_salary.sqlite')\n&quot; 
+   ] 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;code&quot;, 
+   &quot;execution_count&quot;: 3, 
+   &quot;id&quot;: &quot;dd7c8c09&quot;, 
+   &quot;metadata&quot;: { 
+    &quot;ExecuteTime&quot;: { 
+     &quot;end_time&quot;: &quot;2024-01-10T00:00:56.097077Z&quot;, 
+     &quot;start_time&quot;: &quot;2024-01-10T00:00:56.080391Z&quot; 
+    } 
+   }, 
+   &quot;outputs&quot;: [ 
+    { 
+     &quot;data&quot;: { 
+      &quot;text/plain&quot;: &quot;                   Job Title              Salary Estimate  \\\n0             Data Scientist   $53K-$91K (Glassdoor est.)   \n1  Healthcare Data Scientist  $63K-$112K (Glassdoor est.)   \n2             Data Scientist   $80K-$90K (Glassdoor est.)   \n3             Data Scientist   $56K-$97K (Glassdoor est.)   \n4             Data Scientist  $86K-$143K (Glassdoor est.)   \n\n                                     Job Description  Rating         Location  \\\n0  Data Scientist\\nLocation: Albuquerque, NM\\nEdu...     3.8  Albuquerque, NM   \n1  What You Will Do:\\n\\nI. General Summary\\n\\nThe...     3.4    Linthicum, MD   \n2  KnowBe4, Inc. is a high growth information sec...     4.8   Clearwater, FL   \n3  *Organization and Job ID**\\nJob ID: 310709\\n\\n...     3.8     Richland, WA   \n4  Data Scientist\\nAffinity Solutions / Marketing...     2.9     New York, NY   \n\n     Headquarters                    Size  Founded   Type of ownership  \\\n0      Goleta, CA   501 to 1000 employees     1973   Company - Private   \n1   Baltimore, MD        10000+ employees     1984  Other Organization   \n2  Clearwater, FL   501 to 1000 employees     2010   Company - Private   \n3    Richland, WA  1001 to 5000 employees     1965          Government   \n4    New York, NY     51 to 200 employees     1998   Company - Private   \n\n                           Industry  ...  \\\n0               Aerospace &amp; Defense  ...   \n1  Health Care Services &amp; Hospitals  ...   \n2                 Security Services  ...   \n3                            Energy  ...   \n4           Advertising &amp; Marketing  ...   \n\n                               company_txt job_state same_state  age  \\\n0                      Tecolote Research\\n        NM          0   47   \n1  University of Maryland Medical System\\n        MD          0   36   \n2                                KnowBe4\\n        FL          1   10   \n3                                   PNNL\\n        WA          1   55   \n4                     Affinity Solutions\\n        NY          1   22   \n\n   python_yn  R_yn  spark  aws excel                                company  \n0          1     0      0    0     1                      Tecolote Research  \n1          1     0      0    0     0  University of Maryland Medical System  \n2          1     0      1    0     1                                KnowBe4  \n3          1     0      0    0     0                                   PNNL  \n4          1     0      0    0     1                     Affinity Solutions  \n\n[5 rows x 28 columns]&quot;, 
+      &quot;text/html&quot;: &quot;&lt;div&gt;\n&lt;style scoped&gt;\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n&lt;/style&gt;\n&lt;table border=\&quot;1\&quot; class=\&quot;dataframe\&quot;&gt;\n  &lt;thead&gt;\n    &lt;tr style=\&quot;text-align: right;\&quot;&gt;\n      &lt;th&gt;&lt;/th&gt;\n      &lt;th&gt;Job Title&lt;/th&gt;\n      &lt;th&gt;Salary Estimate&lt;/th&gt;\n      &lt;th&gt;Job Description&lt;/th&gt;\n      &lt;th&gt;Rating&lt;/th&gt;\n      &lt;th&gt;Location&lt;/th&gt;\n      &lt;th&gt;Headquarters&lt;/th&gt;\n      &lt;th&gt;Size&lt;/th&gt;\n      &lt;th&gt;Founded&lt;/th&gt;\n      &lt;th&gt;Type of ownership&lt;/th&gt;\n      &lt;th&gt;Industry&lt;/th&gt;\n      &lt;th&gt;...&lt;/th&gt;\n      &lt;th&gt;company_txt&lt;/th&gt;\n      &lt;th&gt;job_state&lt;/th&gt;\n      &lt;th&gt;same_state&lt;/th&gt;\n      &lt;th&gt;age&lt;/th&gt;\n      &lt;th&gt;python_yn&lt;/th&gt;\n      &lt;th&gt;R_yn&lt;/th&gt;\n      &lt;th&gt;spark&lt;/th&gt;\n      &lt;th&gt;aws&lt;/th&gt;\n      &lt;th&gt;excel&lt;/th&gt;\n      &lt;th&gt;company&lt;/th&gt;\n    &lt;/tr&gt;\n  &lt;/thead&gt;\n  &lt;tbody&gt;\n    &lt;tr&gt;\n      &lt;th&gt;0&lt;/th&gt;\n      &lt;td&gt;Data Scientist&lt;/td&gt;\n      &lt;td&gt;$53K-$91K (Glassdoor est.)&lt;/td&gt;\n      &lt;td&gt;Data Scientist\\nLocation: Albuquerque, NM\\nEdu...&lt;/td&gt;\n      &lt;td&gt;3.8&lt;/td&gt;\n      &lt;td&gt;Albuquerque, NM&lt;/td&gt;\n      &lt;td&gt;Goleta, CA&lt;/td&gt;\n      &lt;td&gt;501 to 1000 employees&lt;/td&gt;\n      &lt;td&gt;1973&lt;/td&gt;\n      &lt;td&gt;Company - Private&lt;/td&gt;\n      &lt;td&gt;Aerospace &amp;amp; Defense&lt;/td&gt;\n      &lt;td&gt;...&lt;/td&gt;\n      &lt;td&gt;Tecolote Research\\n&lt;/td&gt;\n      &lt;td&gt;NM&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;47&lt;/td&gt;\n      &lt;td&gt;1&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;1&lt;/td&gt;\n      &lt;td&gt;Tecolote Research&lt;/td&gt;\n    &lt;/tr&gt;\n    &lt;tr&gt;\n      &lt;th&gt;1&lt;/th&gt;\n      &lt;td&gt;Healthcare Data Scientist&lt;/td&gt;\n      &lt;td&gt;$63K-$112K (Glassdoor est.)&lt;/td&gt;\n      &lt;td&gt;What You Will Do:\\n\\nI. General Summary\\n\\nThe...&lt;/td&gt;\n      &lt;td&gt;3.4&lt;/td&gt;\n      &lt;td&gt;Linthicum, MD&lt;/td&gt;\n      &lt;td&gt;Baltimore, MD&lt;/td&gt;\n      &lt;td&gt;10000+ employees&lt;/td&gt;\n      &lt;td&gt;1984&lt;/td&gt;\n      &lt;td&gt;Other Organization&lt;/td&gt;\n      &lt;td&gt;Health Care Services &amp;amp; Hospitals&lt;/td&gt;\n      &lt;td&gt;...&lt;/td&gt;\n      &lt;td&gt;University of Maryland Medical System\\n&lt;/td&gt;\n      &lt;td&gt;MD&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;36&lt;/td&gt;\n      &lt;td&gt;1&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;University of Maryland Medical System&lt;/td&gt;\n    &lt;/tr&gt;\n    &lt;tr&gt;\n      &lt;th&gt;2&lt;/th&gt;\n      &lt;td&gt;Data Scientist&lt;/td&gt;\n      &lt;td&gt;$80K-$90K (Glassdoor est.)&lt;/td&gt;\n      &lt;td&gt;KnowBe4, Inc. is a high growth information sec...&lt;/td&gt;\n      &lt;td&gt;4.8&lt;/td&gt;\n      &lt;td&gt;Clearwater, FL&lt;/td&gt;\n      &lt;td&gt;Clearwater, FL&lt;/td&gt;\n      &lt;td&gt;501 to 1000 employees&lt;/td&gt;\n      &lt;td&gt;2010&lt;/td&gt;\n      &lt;td&gt;Company - Private&lt;/td&gt;\n      &lt;td&gt;Security Services&lt;/td&gt;\n      &lt;td&gt;...&lt;/td&gt;\n      &lt;td&gt;KnowBe4\\n&lt;/td&gt;\n      &lt;td&gt;FL&lt;/td&gt;\n      &lt;td&gt;1&lt;/td&gt;\n      &lt;td&gt;10&lt;/td&gt;\n      &lt;td&gt;1&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;1&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;1&lt;/td&gt;\n      &lt;td&gt;KnowBe4&lt;/td&gt;\n    &lt;/tr&gt;\n    &lt;tr&gt;\n      &lt;th&gt;3&lt;/th&gt;\n      &lt;td&gt;Data Scientist&lt;/td&gt;\n      &lt;td&gt;$56K-$97K (Glassdoor est.)&lt;/td&gt;\n      &lt;td&gt;*Organization and Job ID**\\nJob ID: 310709\\n\\n...&lt;/td&gt;\n      &lt;td&gt;3.8&lt;/td&gt;\n      &lt;td&gt;Richland, WA&lt;/td&gt;\n      &lt;td&gt;Richland, WA&lt;/td&gt;\n      &lt;td&gt;1001 to 5000 employees&lt;/td&gt;\n      &lt;td&gt;1965&lt;/td&gt;\n      &lt;td&gt;Government&lt;/td&gt;\n      &lt;td&gt;Energy&lt;/td&gt;\n      &lt;td&gt;...&lt;/td&gt;\n      &lt;td&gt;PNNL\\n&lt;/td&gt;\n      &lt;td&gt;WA&lt;/td&gt;\n      &lt;td&gt;1&lt;/td&gt;\n      &lt;td&gt;55&lt;/td&gt;\n      &lt;td&gt;1&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;PNNL&lt;/td&gt;\n    &lt;/tr&gt;\n    &lt;tr&gt;\n      &lt;th&gt;4&lt;/th&gt;\n      &lt;td&gt;Data Scientist&lt;/td&gt;\n      &lt;td&gt;$86K-$143K (Glassdoor est.)&lt;/td&gt;\n      &lt;td&gt;Data Scientist\\nAffinity Solutions / Marketing...&lt;/td&gt;\n      &lt;td&gt;2.9&lt;/td&gt;\n      &lt;td&gt;New York, NY&lt;/td&gt;\n      &lt;td&gt;New York, NY&lt;/td&gt;\n      &lt;td&gt;51 to 200 employees&lt;/td&gt;\n      &lt;td&gt;1998&lt;/td&gt;\n      &lt;td&gt;Company - Private&lt;/td&gt;\n      &lt;td&gt;Advertising &amp;amp; Marketing&lt;/td&gt;\n      &lt;td&gt;...&lt;/td&gt;\n      &lt;td&gt;Affinity Solutions\\n&lt;/td&gt;\n      &lt;td&gt;NY&lt;/td&gt;\n      &lt;td&gt;1&lt;/td&gt;\n      &lt;td&gt;22&lt;/td&gt;\n      &lt;td&gt;1&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;0&lt;/td&gt;\n      &lt;td&gt;1&lt;/td&gt;\n      &lt;td&gt;Affinity Solutions&lt;/td&gt;\n    &lt;/tr&gt;\n  &lt;/tbody&gt;\n&lt;/table&gt;\n&lt;p&gt;5 rows × 28 columns&lt;/p&gt;\n&lt;/div&gt;&quot; 
+     }, 
+     &quot;execution_count&quot;: 3, 
+     &quot;metadata&quot;: {}, 
+     &quot;output_type&quot;: &quot;execute_result&quot; 
+    } 
+   ], 
+   &quot;source&quot;: [ 
+    &quot;# Print the first few rows of the dataframe\n&quot;, 
+    &quot;df.head()&quot; 
+   ] 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;markdown&quot;, 
+   &quot;source&quot;: [ 
+    &quot;Checking missing value&quot; 
+   ], 
+   &quot;metadata&quot;: { 
+    &quot;collapsed&quot;: false 
+   }, 
+   &quot;id&quot;: &quot;a007e9648e168f7a&quot; 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;code&quot;, 
+   &quot;execution_count&quot;: 4, 
+   &quot;outputs&quot;: [ 
+    { 
+     &quot;data&quot;: { 
+      &quot;text/plain&quot;: &quot;Job Title            0\nSalary Estimate      0\nJob Description      0\nRating               0\nLocation             0\nHeadquarters         0\nSize                 0\nFounded              0\nType of ownership    0\nIndustry             0\nSector               0\nRevenue              0\nCompetitors          0\nhourly               0\nemployer_provided    0\nmin_salary           0\nmax_salary           0\navg_salary           0\ncompany_txt          0\njob_state            0\nsame_state           0\nage                  0\npython_yn            0\nR_yn                 0\nspark                0\naws                  0\nexcel                0\ncompany              0\ndtype: int64&quot; 
+     }, 
+     &quot;execution_count&quot;: 4, 
+     &quot;metadata&quot;: {}, 
+     &quot;output_type&quot;: &quot;execute_result&quot; 
+    } 
+   ], 
+   &quot;source&quot;: [ 
+    &quot;df.isnull().sum()&quot; 
+   ], 
+   &quot;metadata&quot;: { 
+    &quot;collapsed&quot;: false, 
+    &quot;ExecuteTime&quot;: { 
+     &quot;end_time&quot;: &quot;2024-01-10T00:00:56.104982Z&quot;, 
+     &quot;start_time&quot;: &quot;2024-01-10T00:00:56.096455Z&quot; 
+    } 
+   }, 
+   &quot;id&quot;: &quot;f315e53f15087472&quot; 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;code&quot;, 
+   &quot;execution_count&quot;: 5, 
+   &quot;outputs&quot;: [ 
+    { 
+     &quot;data&quot;: { 
+      &quot;text/plain&quot;: &quot;(732, 28)&quot; 
+     }, 
+     &quot;execution_count&quot;: 5, 
+     &quot;metadata&quot;: {}, 
+     &quot;output_type&quot;: &quot;execute_result&quot; 
+    } 
+   ], 
+   &quot;source&quot;: [ 
+    &quot;df.shape&quot; 
+   ], 
+   &quot;metadata&quot;: { 
+    &quot;collapsed&quot;: false, 
+    &quot;ExecuteTime&quot;: { 
+     &quot;end_time&quot;: &quot;2024-01-10T00:00:56.147734Z&quot;, 
+     &quot;start_time&quot;: &quot;2024-01-10T00:00:56.108375Z&quot; 
+    } 
+   }, 
+   &quot;id&quot;: &quot;b0fa113e84e717f2&quot; 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;markdown&quot;, 
+   &quot;source&quot;: [ 
+    &quot;Total rows: 741\n&quot;, 
+    &quot;Total columns: 28&quot; 
+   ], 
+   &quot;metadata&quot;: { 
+    &quot;collapsed&quot;: false 
+   }, 
+   &quot;id&quot;: &quot;8edc0734e9033149&quot; 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;code&quot;, 
+   &quot;execution_count&quot;: 6, 
+   &quot;outputs&quot;: [ 
+    { 
+     &quot;name&quot;: &quot;stdout&quot;, 
+     &quot;output_type&quot;: &quot;stream&quot;, 
+     &quot;text&quot;: [ 
+      &quot;          Column Name Data Type\n&quot;, 
+      &quot;0           Job Title    object\n&quot;, 
+      &quot;1     Salary Estimate    object\n&quot;, 
+      &quot;2     Job Description    object\n&quot;, 
+      &quot;3              Rating   float64\n&quot;, 
+      &quot;4            Location    object\n&quot;, 
+      &quot;5        Headquarters    object\n&quot;, 
+      &quot;6                Size    object\n&quot;, 
+      &quot;7             Founded     int64\n&quot;, 
+      &quot;8   Type of ownership    object\n&quot;, 
+      &quot;9            Industry    object\n&quot;, 
+      &quot;10             Sector    object\n&quot;, 
+      &quot;11            Revenue    object\n&quot;, 
+      &quot;12        Competitors    object\n&quot;, 
+      &quot;13             hourly     int64\n&quot;, 
+      &quot;14  employer_provided     int64\n&quot;, 
+      &quot;15         min_salary     int64\n&quot;, 
+      &quot;16         max_salary     int64\n&quot;, 
+      &quot;17         avg_salary   float64\n&quot;, 
+      &quot;18        company_txt    object\n&quot;, 
+      &quot;19          job_state    object\n&quot;, 
+      &quot;20         same_state     int64\n&quot;, 
+      &quot;21                age     int64\n&quot;, 
+      &quot;22          python_yn     int64\n&quot;, 
+      &quot;23               R_yn     int64\n&quot;, 
+      &quot;24              spark     int64\n&quot;, 
+      &quot;25                aws     int64\n&quot;, 
+      &quot;26              excel     int64\n&quot;, 
+      &quot;27            company    object\n&quot; 
+     ] 
+    } 
+   ], 
+   &quot;source&quot;: [ 
+    &quot;def get_info(df):\n&quot;, 
+    &quot;    column_info = df.dtypes.reset_index()\n&quot;, 
+    &quot;    column_info.columns = ['Column Name', 'Data Type']\n&quot;, 
+    &quot;    return column_info\n&quot;, 
+    &quot;df_info = get_info(df)\n&quot;, 
+    &quot;print(df_info)&quot; 
+   ], 
+   &quot;metadata&quot;: { 
+    &quot;collapsed&quot;: false, 
+    &quot;ExecuteTime&quot;: { 
+     &quot;end_time&quot;: &quot;2024-01-10T00:00:56.158834Z&quot;, 
+     &quot;start_time&quot;: &quot;2024-01-10T00:00:56.115261Z&quot; 
+    } 
+   }, 
+   &quot;id&quot;: &quot;4eb6d9adb2282138&quot; 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;code&quot;, 
+   &quot;execution_count&quot;: 7, 
+   &quot;outputs&quot;: [], 
+   &quot;source&quot;: [ 
+    &quot;df2 = pd.read_sql_table('ds_salaries', 'sqlite:///../data/ds_salaries.sqlite')&quot; 
+   ], 
+   &quot;metadata&quot;: { 
+    &quot;collapsed&quot;: false, 
+    &quot;ExecuteTime&quot;: { 
+     &quot;end_time&quot;: &quot;2024-01-10T00:00:56.178336Z&quot;, 
+     &quot;start_time&quot;: &quot;2024-01-10T00:00:56.120282Z&quot; 
+    } 
+   }, 
+   &quot;id&quot;: &quot;942c051274138afe&quot; 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;code&quot;, 
+   &quot;execution_count&quot;: 8, 
+   &quot;outputs&quot;: [ 
+    { 
+     &quot;data&quot;: { 
+      &quot;text/plain&quot;: &quot;(3755, 11)&quot; 
+     }, 
+     &quot;execution_count&quot;: 8, 
+     &quot;metadata&quot;: {}, 
+     &quot;output_type&quot;: &quot;execute_result&quot; 
+    } 
+   ], 
+   &quot;source&quot;: [ 
+    &quot;df2.shape&quot; 
+   ], 
+   &quot;metadata&quot;: { 
+    &quot;collapsed&quot;: false, 
+    &quot;ExecuteTime&quot;: { 
+     &quot;end_time&quot;: &quot;2024-01-10T00:00:56.178765Z&quot;, 
+     &quot;start_time&quot;: &quot;2024-01-10T00:00:56.152731Z&quot; 
+    } 
+   }, 
+   &quot;id&quot;: &quot;791a8d34a464bafd&quot; 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;code&quot;, 
+   &quot;execution_count&quot;: 9, 
+   &quot;outputs&quot;: [ 
+    { 
+     &quot;data&quot;: { 
+      &quot;text/plain&quot;: &quot;2023    1785\n2022    1664\n2021     230\n2020      76\nName: work_year, dtype: int64&quot; 
+     }, 
+     &quot;execution_count&quot;: 9, 
+     &quot;metadata&quot;: {}, 
+     &quot;output_type&quot;: &quot;execute_result&quot; 
+    } 
+   ], 
+   &quot;source&quot;: [ 
+    &quot;df2['work_year'].value_counts()&quot; 
+   ], 
+   &quot;metadata&quot;: { 
+    &quot;collapsed&quot;: false, 
+    &quot;ExecuteTime&quot;: { 
+     &quot;end_time&quot;: &quot;2024-01-10T00:00:56.205228Z&quot;, 
+     &quot;start_time&quot;: &quot;2024-01-10T00:00:56.160918Z&quot; 
+    } 
+   }, 
+   &quot;id&quot;: &quot;1cb057071b09d9ee&quot; 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;code&quot;, 
+   &quot;execution_count&quot;: 10, 
+   &quot;outputs&quot;: [ 
+    { 
+     &quot;data&quot;: { 
+      &quot;text/plain&quot;: &quot;work_year                4\nexperience_level         4\nemployment_type          4\njob_title               93\nsalary                 815\nsalary_currency         20\nsalary_in_usd         1035\nemployee_residence      78\nremote_ratio             3\ncompany_location        72\ncompany_size             3\ndtype: int64&quot; 
+     }, 
+     &quot;execution_count&quot;: 10, 
+     &quot;metadata&quot;: {}, 
+     &quot;output_type&quot;: &quot;execute_result&quot; 
+    } 
+   ], 
+   &quot;source&quot;: [ 
+    &quot;df2.nunique()&quot; 
+   ], 
+   &quot;metadata&quot;: { 
+    &quot;collapsed&quot;: false, 
+    &quot;ExecuteTime&quot;: { 
+     &quot;end_time&quot;: &quot;2024-01-10T00:00:56.205959Z&quot;, 
+     &quot;start_time&quot;: &quot;2024-01-10T00:00:56.168798Z&quot; 
+    } 
+   }, 
+   &quot;id&quot;: &quot;d0c84f19e8c44f0e&quot; 
+  }, 
+  { 
+   &quot;cell_type&quot;: &quot;code&quot;, 
+   &quot;execution_count&quot;: 10, 
+   &quot;outputs&quot;: [], 
+   &quot;source&quot;: [], 
+   &quot;metadata&quot;: { 
+    &quot;collapsed&quot;: false, 
+    &quot;ExecuteTime&quot;: { 
+     &quot;end_time&quot;: &quot;2024-01-10T00:00:56.206025Z&quot;, 
+     &quot;start_time&quot;: &quot;2024-01-10T00:00:56.180134Z&quot; 
+    } 
+   }, 
+   &quot;id&quot;: &quot;1bb1f0502b6e5370&quot; 
+  } 
+ ], 
+ &quot;metadata&quot;: { 
+  &quot;kernelspec&quot;: { 
+   &quot;display_name&quot;: &quot;Python 3 (ipykernel)&quot;, 
+   &quot;language&quot;: &quot;python&quot;, 
+   &quot;name&quot;: &quot;python3&quot; 
+  }, 
+  &quot;language_info&quot;: { 
+   &quot;codemirror_mode&quot;: { 
+    &quot;name&quot;: &quot;ipython&quot;, 
+    &quot;version&quot;: 3 
+   }, 
+   &quot;file_extension&quot;: &quot;.py&quot;, 
+   &quot;mimetype&quot;: &quot;text/x-python&quot;, 
+   &quot;name&quot;: &quot;python&quot;, 
+   &quot;nbconvert_exporter&quot;: &quot;python&quot;, 
+   &quot;pygments_lexer&quot;: &quot;ipython3&quot;, 
+   &quot;version&quot;: &quot;3.11.5&quot; 
+  } 
+ }, 
+ &quot;nbformat&quot;: 4, 
+ &quot;nbformat_minor&quot;: 5 
+} 
+</span></pre>
+</body>
+</html>

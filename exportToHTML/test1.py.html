@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>test1.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #47a2ed;}
+.s1 { color: #d4d4d4;}
+.s2 { color: #699856;}
+.s3 { color: #fdfcfc;}
+.s4 { color: #cd9069;}
+.s5 { color: #d7ba7d;}
+.s6 { color: #b4cda8;}
+</style>
+</head>
+<body bgcolor="#1e1e1e">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+test1.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">unittest</span>
+<span class="s0">import </span><span class="s1">os</span>
+<span class="s0">import </span><span class="s1">opendatasets </span><span class="s0">as </span><span class="s1">od</span>
+<span class="s0">import </span><span class="s1">sqlite3</span>
+<span class="s0">import </span><span class="s1">pandas </span><span class="s0">as </span><span class="s1">pd</span>
+<span class="s0">import </span><span class="s1">io</span>
+<span class="s0">import </span><span class="s1">requests</span>
+<span class="s0">import </span><span class="s1">kaggle</span>
+<span class="s0">import </span><span class="s1">shutil</span>
+<span class="s0">from </span><span class="s1">kaggle.api.kaggle_api_extended </span><span class="s0">import </span><span class="s1">KaggleApi</span>
+<span class="s0">import </span><span class="s1">zipfile</span>
+
+<span class="s2"># Testing automated pipeline</span>
+<span class="s0">class </span><span class="s1">TestDownloadAndSaveDataset(unittest.TestCase)</span><span class="s3">:</span>
+
+    <span class="s0">def </span><span class="s1">setUp(self)</span><span class="s3">:</span>
+        <span class="s2"># Set up necessary variables for testing</span>
+        <span class="s1">self.dataset_url </span><span class="s3">= </span><span class="s4">'https://www.kaggle.com/datasets/thedevastator/jobs-dataset-from-glassdoor/download?datasetVersionNumber=2'</span>
+        <span class="s1">self.file_path </span><span class="s3">= </span><span class="s4">'..data/dataset-folder/salary_data_cleaned.csv'</span>
+        <span class="s1">self.db_path </span><span class="s3">= </span><span class="s4">'../data/clean_salary.sqlite'</span>
+
+        <span class="s1">self.excel_url </span><span class="s3">= </span><span class="s4">&quot;https://query.data.world/s/7swlcctjkj7vxuhxta7oxjtcy36ptk?dws=00000&quot;</span>
+        <span class="s1">self.csv_path </span><span class="s3">= </span><span class="s4">&quot;../data/global_salary.csv&quot;</span>
+        <span class="s1">self.b_path </span><span class="s3">= </span><span class="s4">&quot;../data/global_salary.sqlite&quot;</span>
+
+    <span class="s0">def </span><span class="s1">download_dataset(self)</span><span class="s3">:</span>
+        <span class="s0">def </span><span class="s1">extract_and_move(old_name</span><span class="s3">: </span><span class="s1">str, new_name</span><span class="s3">: </span><span class="s1">str)</span><span class="s3">:</span>
+            <span class="s1">shutil.move(old_name, new_name)</span>
+            <span class="s0">with </span><span class="s1">zipfile.ZipFile(new_name, </span><span class="s4">'r'</span><span class="s1">) </span><span class="s0">as </span><span class="s1">zip_ref</span><span class="s3">:</span>
+                <span class="s1">zip_ref.extractall(</span><span class="s4">'../data'</span><span class="s1">)</span>
+
+        <span class="s2">#api = KaggleApi()</span>
+        <span class="s2">#api.authenticate()</span>
+
+        <span class="s2"># Add your Kaggle dataset download and preprocessing logic here</span>
+
+        <span class="s2"># Example:</span>
+        <span class="s2">#api.dataset_download_file('thedevastator/jobs-dataset-from-glassdoor', 'file.zip')</span>
+
+        <span class="s2">#extract_and_move('file.zip', '../data/dataset-folder')</span>
+
+    <span class="s0">def </span><span class="s1">read_csv_and_save_to_sql(self, file_path, db_path, table_name)</span><span class="s3">:</span>
+        <span class="s1">cleancsv_df </span><span class="s3">= </span><span class="s1">pd.read_csv(file_path)</span>
+        <span class="s2"># Cleaning</span>
+        <span class="s1">cleancsv_df </span><span class="s3">= </span><span class="s1">cleancsv_df[(cleancsv_df[</span><span class="s4">'Sector'</span><span class="s1">] </span><span class="s3">!= </span><span class="s4">'unknown'</span><span class="s1">) </span><span class="s3">&amp; </span><span class="s1">(cleancsv_df[</span><span class="s4">'Sector'</span><span class="s1">] </span><span class="s3">!= </span><span class="s4">'-1'</span><span class="s1">)]</span>
+        <span class="s2"># Check if DataFrame is not empty</span>
+        <span class="s1">self.assertFalse(cleancsv_df.empty)</span>
+
+        <span class="s2"># Connect to SQLite database and save the DataFrame</span>
+        <span class="s1">conn </span><span class="s3">= </span><span class="s1">sqlite3.connect(db_path)</span>
+        <span class="s1">cleancsv_df.to_sql(table_name, conn, index</span><span class="s3">=</span><span class="s0">False</span><span class="s1">, if_exists</span><span class="s3">=</span><span class="s4">'replace'</span><span class="s1">)</span>
+
+        <span class="s2"># Check if the table exists in the database</span>
+        <span class="s1">cursor </span><span class="s3">= </span><span class="s1">conn.cursor()</span>
+        <span class="s1">cursor.execute(</span><span class="s4">f&quot;SELECT name FROM sqlite_master WHERE type='table' AND name='</span><span class="s5">{</span><span class="s1">table_name</span><span class="s5">}</span><span class="s4">';&quot;</span><span class="s1">)</span>
+        <span class="s1">result </span><span class="s3">= </span><span class="s1">cursor.fetchone()</span>
+        <span class="s1">self.assertIsNotNone(result)</span>
+
+        <span class="s2"># Close the database connection</span>
+        <span class="s1">conn.close()</span>
+
+    <span class="s0">def </span><span class="s1">download_excel_convert_to_csv_save_to_sql(self, excel_url, csv_path, db_path, table_name)</span><span class="s3">:</span>
+        <span class="s2"># Use requests to get the content from the URL</span>
+        <span class="s1">response </span><span class="s3">= </span><span class="s1">requests.get(excel_url)</span>
+
+        <span class="s2"># Check if the request was successful (status code 200)</span>
+        <span class="s0">if </span><span class="s1">response.status_code </span><span class="s3">== </span><span class="s6">200</span><span class="s3">:</span>
+            <span class="s2"># Read the Excel content from the response</span>
+            <span class="s1">excel_content </span><span class="s3">= </span><span class="s1">response.content</span>
+
+            <span class="s2"># Use io.BytesIO to create a buffer and read_excel to read from the buffer</span>
+            <span class="s1">df </span><span class="s3">= </span><span class="s1">pd.read_excel(io.BytesIO(excel_content))</span>
+
+            <span class="s2"># Convert the DataFrame to CSV</span>
+            <span class="s1">csv_content </span><span class="s3">= </span><span class="s1">df.to_csv(index</span><span class="s3">=</span><span class="s0">False</span><span class="s1">)</span>
+
+            <span class="s2"># Save the CSV content to a file</span>
+            <span class="s0">with </span><span class="s1">open(</span><span class="s4">'../data/global_salary.csv'</span><span class="s1">, </span><span class="s4">'w'</span><span class="s1">, encoding</span><span class="s3">=</span><span class="s4">'utf-8'</span><span class="s1">) </span><span class="s0">as </span><span class="s1">csv_file</span><span class="s3">:</span>
+                <span class="s1">csv_file.write(csv_content)</span>
+
+            <span class="s1">print(</span><span class="s4">&quot;Conversion to CSV successful. CSV file saved as 'global_salary.csv'&quot;</span><span class="s1">)</span>
+
+            <span class="s2"># Cleaning</span>
+            <span class="s1">conn </span><span class="s3">= </span><span class="s1">sqlite3.connect(db_path)</span>
+            <span class="s1">df.to_sql(table_name, conn, index</span><span class="s3">=</span><span class="s0">False</span><span class="s1">, if_exists</span><span class="s3">=</span><span class="s4">'replace'</span><span class="s1">)</span>
+            <span class="s1">conn.close()</span>
+
+        <span class="s0">else</span><span class="s3">:</span>
+            <span class="s1">print(</span><span class="s4">f&quot;Failed to retrieve data. Status code: </span><span class="s5">{</span><span class="s1">response.status_code</span><span class="s5">}</span><span class="s4">&quot;</span><span class="s1">)</span>
+
+    <span class="s0">def </span><span class="s1">test_download_and_save_dataset(self)</span><span class="s3">:</span>
+        <span class="s2"># Download dataset</span>
+        <span class="s1">self.download_dataset(self.dataset_url)</span>
+
+        <span class="s2"># Check if the downloaded file exists</span>
+        <span class="s1">self.assertTrue(os.path.exists(self.file_path))</span>
+
+
+        <span class="s2"># Read CSV and save to SQLite</span>
+        <span class="s1">self.read_csv_and_save_to_sql(self.file_path, self.db_path, </span><span class="s4">'clean_salary'</span><span class="s1">)</span>
+
+        <span class="s2">#self.assertTrue(os.path.exists(self.csv_path))</span>
+        <span class="s2"># Download Excel, convert to CSV, and save to SQLite</span>
+        <span class="s1">self.download_excel_convert_to_csv_save_to_sql(self.excel_url, self.csv_path, self.b_path, </span><span class="s4">'global_salary'</span><span class="s1">)</span>
+
+    <span class="s0">def </span><span class="s1">tearDown(self)</span><span class="s3">:</span>
+        <span class="s2"># Clean up after the test</span>
+        <span class="s4">''' 
+        for file_path in [self.file_path, self.db_path, self.csv_path, self.b_path]: 
+            if os.path.exists(file_path): 
+                os.remove(file_path) 
+                '''</span>
+
+
+<span class="s0">if </span><span class="s1">__name__ </span><span class="s3">== </span><span class="s4">'__main__'</span><span class="s3">:</span>
+    <span class="s1">unittest.main()</span>
+</pre>
+</body>
+</html>
