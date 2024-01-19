@@ -78,7 +78,8 @@ This comprehensive dataset offers a wealth of information for analysis and explo
 
 ## Interactive session
 
-- [Interactive Session](https://arpita739.github.io/made-template/project/report.html)
+- [Interactive Session](https://arpita739.github.io/made-template/project/report.html){:target="_blank"}
+
 
 ## Usage
 
