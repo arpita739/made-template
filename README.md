@@ -1,5 +1,5 @@
 [![Python Version](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/downloads/release/python-3110/)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE.md)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 ![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
 
 # Data Science Job Salary Analysis
