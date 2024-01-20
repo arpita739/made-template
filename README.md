@@ -1,5 +1,5 @@
 [![Python Version](https://img.shields.io/badge/Python-3.11%2B-blue)](https://www.python.org/downloads/release/python-3110/)
-![License](https://img.shields.io/badge/License-MIT-green)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE.md)
 ![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
 
 # Data Science Job Salary Analysis
@@ -117,3 +117,10 @@ To use this project, follow these steps:
 Please note that you need to have a Kaggle account and API key configured on your system for the pipeline script to work correctly. Refer to the Kaggle API documentation for more information on setting up your credentials: [Kaggle API Documentation](https://www.kaggle.com/docs/api).
 
 
+## Special Thanks to Our Tutors
+
+I want to express my heartfelt gratitude to our tutors, *Philip Heltweg* and *Georg Schwarz*, for their unwavering guidance and support throughout every phase of this project. Their unparalleled expertise and profound insights have played a pivotal role in shaping my approach and methodologies.
+
+This project stands as a testament to the invaluable mentorship provided by Philip and Georg. Their encouragement, constructive feedback, and dedication have been the driving force behind the successful completion of this endeavor. I am truly thankful for the privilege of learning under their mentorship.
+
+*This project would not have been possible without the exceptional contributions of Philip and Georg. Their commitment to fostering learning and excellence has left an indelible mark on this journey, and for that, I am sincerely grateful.*
