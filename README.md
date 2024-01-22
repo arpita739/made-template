@@ -5,6 +5,19 @@
 # Data Science Job Salary Analysis
 ![Data Science](Data-Science-Studium.jpeg)
 
+## Project Link
+
+- [Data Science Job Salary Analysis Project](https://github.com/arpita739/made-template/blob/main/project/report.ipynb)
+
+## Interactive Project Link
+
+- [Interactive Session](https://arpita739.github.io/made-template/project/report.html)
+  
+## Presentation Link
+- [Powerpoint presentation](https://github.com/arpita739/made-template/blob/main/Presentation_MADE.pptx)
+- [PDF](https://github.com/arpita739/made-template/blob/main/Presentation_MADE.pdf)
+- [Video]()
+
 ## Introduction
 
 In the era of big data and technological advancement, the role of data science has become integral to driving innovation, efficiency, and strategic decision-making across diverse industries. As organizations increasingly rely on data-driven insights, the demand for skilled data scientists has surged, leading to a competitive job market where salary structures play a crucial role. This report undertakes a comprehensive exploration into the factors influencing data science salaries, aiming to uncover patterns, trends, and geographical variations that define compensation packages in this dynamic field.
@@ -71,15 +84,6 @@ In my preliminary attempt to predict salaries according to job descriptions, thi
 11. Company Size
 
 This comprehensive dataset offers a wealth of information for analysis and exploration, providing valuable insights into trends and patterns in the job market within specified timeframes and regions.
-
-## Project Link
-
-- [Data Science Job Salary Analysis Project](https://github.com/arpita739/made-template/blob/main/project/report.ipynb)
-
-## Interactive Project Link
-
-- [Interactive Session](https://arpita739.github.io/made-template/project/report.html)
-
 
 ## Usage
 
