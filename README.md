@@ -20,7 +20,7 @@
 
 ## Introduction
 
-In the era of big data and technological advancement, the role of data science has become integral to driving innovation, efficiency, and strategic decision-making across diverse industries. As organizations increasingly rely on data-driven insights, the demand for skilled data scientists has surged, leading to a competitive job market where salary structures play a crucial role. This report undertakes a comprehensive exploration into the factors influencing data science salaries, aiming to uncover patterns, trends, and geographical variations that define compensation packages in this dynamic field.
+In the era of big data and technological advancement, the role of https://drive.google.com/file/d/1czJG939X7FBSimC4RWIwrdTFH5Lsa2FA/view?usp=sharingdata science has become integral to driving innovation, efficiency, and strategic decision-making across diverse industries. As organizations increasingly rely on data-driven insights, the demand for skilled data scientists has surged, leading to a competitive job market where salary structures play a crucial role. This report undertakes a comprehensive exploration into the factors influencing data science salaries, aiming to uncover patterns, trends, and geographical variations that define compensation packages in this dynamic field.
 
 ## Motivation
 
